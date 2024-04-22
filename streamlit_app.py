@@ -18,7 +18,8 @@ st.write('The name on smoothie will be:', name_on_order)
 cnx = st.connection('snowflake')
 session = cnx.session()
 my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'))
-#st.dataframe(data=my_dataframe, use_container_width=True)
+st.dataframe(data=my_dataframe, use_container_width=True)
+st.stop()
 
 ingredients_list = st.multiselect(
     'Chose up to 5 ingridients:'
@@ -29,7 +30,7 @@ if ingredients_list:
     ingredients_string = ''
     for each_fruit in ingredients_list:
         ingredients_string += each_fruit + ' '
-        st.subheader(each_fruit + 'Nutrition Information')
+        st.subheader(each_fruit + ' Nutrition Information')
         fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
         fv_df = st.dataframe(data = fruityvice_response.json(), use_container_width = True)
     #st.write(ingredients_string)
